@@ -27,6 +27,8 @@ public class PlaneGameFrame extends MyFrame {
 
     Date startTime;
     Date endTime;
+
+    Explode bao;
     /**
      * 绘制画面
      */
@@ -38,14 +40,15 @@ public class PlaneGameFrame extends MyFrame {
         for (int i = 0; i < bulletList.size(); i++) {
             Bullet b = (Bullet)bulletList.get(i);
             b.draw(g);
-            if (plane.isLive()) {
-                boolean crash = b.getRect().intersects(plane.getRect());
-                if (crash) {
-                    System.out.println("##########发生碰撞########");
-                    plane.setLive(false); //飞机挂掉
-
-                    endTime = new Date();
+            boolean crash = b.getRect().intersects(plane.getRect());
+            if (crash) {
+                //System.out.println("##########发生碰撞########");
+                plane.setLive(false); //飞机挂掉
+                endTime = new Date();
+                if (bao == null) {
+                    bao = new Explode(plane.x, plane.y);
                 }
+                bao.draw(g);
             }
         }
 
