@@ -6,6 +6,7 @@ import com.mingjalee.util.MyFrame;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * 游戏主窗口
@@ -18,6 +19,8 @@ public class PlaneGameFrame extends MyFrame {
     Image bg = GameUtil.getImage("images/bg.jpg");
     Plane plane = new Plane("images/plane.png", 50, 50);
 
+    ArrayList bulletList = new ArrayList();
+
     /**
      * 绘制画面
      */
@@ -25,6 +28,11 @@ public class PlaneGameFrame extends MyFrame {
     public void paint(Graphics g) {
         g.drawImage(bg, 0, 0, null);
         plane.draw(g);
+
+        for (int i = 0; i < bulletList.size(); i++) {
+            Bullet b = (Bullet)bulletList.get(i);
+            b.draw(g);
+        }
     }
 
 
@@ -34,6 +42,11 @@ public class PlaneGameFrame extends MyFrame {
 
         //注册键盘监听
         addKeyListener(new KeyMonitor());
+
+        for (int i = 0; i < 30; i++) {
+            Bullet b = new Bullet();
+            bulletList.add(b);
+        }
     }
 
     /**
