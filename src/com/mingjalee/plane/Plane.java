@@ -16,7 +16,7 @@ public class Plane {
     Image img;
     double x;
     double y;
-    double speed = 10;
+    double speed = 6;
     double degree;
 
     //飞机方向

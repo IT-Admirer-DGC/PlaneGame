@@ -52,6 +52,13 @@ public class Bullet {
         x += speed * Math.cos(degree);
         y += speed * Math.sin(degree);
 
+        if (y > Constant.GAME_HEIGHT - height || y < 0) {
+            degree = -degree;
+        }
+
+        if (x > Constant.GAME_WIDTH - width || x < 0) {
+            degree = Math.PI - degree;
+        }
     }
 
 
