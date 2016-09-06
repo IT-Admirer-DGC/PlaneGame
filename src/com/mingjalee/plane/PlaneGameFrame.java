@@ -4,6 +4,8 @@ import com.mingjalee.util.GameUtil;
 import com.mingjalee.util.MyFrame;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * 游戏主窗口
@@ -23,6 +25,33 @@ public class PlaneGameFrame extends MyFrame {
     public void paint(Graphics g) {
         g.drawImage(bg, 0, 0, null);
         plane.draw(g);
+    }
+
+
+    @Override
+    public void launchFrame() {
+        super.launchFrame();
+
+        //注册键盘监听
+        addKeyListener(new KeyMonitor());
+    }
+
+    /**
+     * 键盘监听类,内部类可以方便访问外部类的属性
+     * @author jerry
+     */
+    class KeyMonitor extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("按下键盘: " + e.getKeyChar() + " " + e.getKeyCode());
+
+            plane.move(e);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("松开键盘: " + e.getKeyChar() + " " + e.getKeyCode());
+        }
     }
 
     public static void main(String[] args) {

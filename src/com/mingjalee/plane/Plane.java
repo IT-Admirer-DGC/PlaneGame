@@ -3,6 +3,7 @@ package com.mingjalee.plane;
 import com.mingjalee.util.GameUtil;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * 游戏飞机类
@@ -15,7 +16,7 @@ public class Plane {
     Image img;
     double x;
     double y;
-    double speed;
+    double speed = 10;
     double degree;
 
     public Plane(){
@@ -38,6 +39,30 @@ public class Plane {
      */
     public void draw(Graphics g) {
         g.drawImage(img, (int)x, (int)y, null);
+
+
+    }
+
+    /**
+     * 飞机移动位置
+     */
+    public void move(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                y -= speed;
+                break;
+            case KeyEvent.VK_DOWN:
+                y += speed;
+                break;
+            case KeyEvent.VK_LEFT:
+                x -= speed;
+                break;
+            case KeyEvent.VK_RIGHT:
+                x += speed;
+                break;
+            default:
+                break;
+        }
     }
 }
 
