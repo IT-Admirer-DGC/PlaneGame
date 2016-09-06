@@ -44,9 +44,9 @@ public class PlaneGameFrame extends MyFrame {
             if (crash) {
                 //System.out.println("##########发生碰撞########");
                 plane.setLive(false); //飞机挂掉
-                endTime = new Date();
                 if (bao == null) {
                     bao = new Explode(plane.x, plane.y);
+                    endTime = new Date();
                 }
                 bao.draw(g);
             }
@@ -125,7 +125,7 @@ public class PlaneGameFrame extends MyFrame {
         //注册键盘监听
         addKeyListener(new KeyMonitor());
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 15; i++) {
             Bullet b = new Bullet();
             bulletList.add(b);
         }

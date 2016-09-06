@@ -1,5 +1,6 @@
 package com.mingjalee.plane;
 
+import com.mingjalee.util.Constant;
 import com.mingjalee.util.GameUtil;
 
 import java.awt.*;
@@ -76,6 +77,12 @@ public class Plane extends GameObject {
         if (down) {
             y += speed;
         }
+
+        x = (x <= 0) ? 0 : x;
+        x = (x >= Constant.GAME_WIDTH - width) ? (Constant.GAME_WIDTH - width) : x;
+
+        y = (y <= 30) ? 30 : y; //30 大概的菜单条高度
+        y = (y >= Constant.GAME_HEIGHT - height) ? (Constant.GAME_HEIGHT - height) : y;
     }
 
     /**

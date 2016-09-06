@@ -47,7 +47,7 @@ public class Bullet extends GameObject {
         x += speed * Math.cos(degree);
         y += speed * Math.sin(degree);
 
-        if (y > Constant.GAME_HEIGHT - height || y < 0) {
+        if (y > Constant.GAME_HEIGHT - height || y < 30) {
             degree = -degree;
         }
 
