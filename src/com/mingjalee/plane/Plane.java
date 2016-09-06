@@ -10,17 +10,9 @@ import java.awt.event.KeyEvent;
  * @author jerry
  * @create 16/9/6 00:53
  */
-public class Plane {
-    //属性:图片,坐标,移动速度,移动角度; 方法:构造,绘制,移动。后期需要图片宽高,方向
+public class Plane extends GameObject {
+    //属性:图片,坐标,移动速度; 方法:构造,绘制,移动。后期需要图片宽高,方向
 
-    Image img;
-    double x;
-    double y;
-    double speed = 6;
-    double degree;
-
-    int width;
-    int height;
 
     //飞机方向
     boolean left, right, up, down;
@@ -41,6 +33,8 @@ public class Plane {
 
         this.x = x;
         this.y = y;
+
+        this.speed = 6;
     }
 
     /**
@@ -52,12 +46,6 @@ public class Plane {
         move();
     }
 
-    /**
-     * 得到物体图片矩形
-     */
-    public Rectangle getRect() {
-        return new Rectangle((int)x, (int)y, width, height);
-    }
 
     /**
      * 飞机移动位置

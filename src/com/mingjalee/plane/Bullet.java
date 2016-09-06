@@ -9,16 +9,10 @@ import java.awt.*;
  * @author jerry
  * @create 16/9/6 10:44
  */
-public class Bullet {
+public class Bullet extends GameObject {
     //属性:位置xy,速度,角度; 方法:随机角度,子弹移动,画板,构造 后期:宽高
 
-    double x;
-    double y;
-    double speed;
     double degree;
-    //子弹大小
-    int width;
-    int height;
 
     public Bullet() {
         degree = Math.random() * Math.PI * 2;
@@ -45,12 +39,6 @@ public class Bullet {
         move();
     }
 
-    /**
-     * 得到物体图片矩形
-     */
-    public Rectangle getRect() {
-        return new Rectangle((int)x, (int)y, width, height);
-    }
 
     /**
      * 子弹移动
