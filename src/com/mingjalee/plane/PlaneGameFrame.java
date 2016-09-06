@@ -45,12 +45,13 @@ public class PlaneGameFrame extends MyFrame {
         public void keyPressed(KeyEvent e) {
             System.out.println("按下键盘: " + e.getKeyChar() + " " + e.getKeyCode());
 
-            plane.move(e);
+            plane.addDirection(e);
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
             System.out.println("松开键盘: " + e.getKeyChar() + " " + e.getKeyCode());
+            plane.minusDirection(e);
         }
     }
 

@@ -19,6 +19,9 @@ public class Plane {
     double speed = 10;
     double degree;
 
+    //飞机方向
+    boolean left, right, up, down;
+
     public Plane(){
 
     }
@@ -40,25 +43,65 @@ public class Plane {
     public void draw(Graphics g) {
         g.drawImage(img, (int)x, (int)y, null);
 
-
+        move();
     }
 
     /**
      * 飞机移动位置
      */
-    public void move(KeyEvent e) {
+    public void move() {
+        if (left) {
+            x -= speed;
+        }
+        if (right) {
+            x += speed;
+        }
+        if (up) {
+            y -= speed;
+        }
+        if (down) {
+            y += speed;
+        }
+    }
+
+    /**
+     * 飞机飞行方向标记:键盘按下
+     */
+    public void addDirection(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                y -= speed;
+                up = true;
                 break;
             case KeyEvent.VK_DOWN:
-                y += speed;
+                down = true;
                 break;
             case KeyEvent.VK_LEFT:
-                x -= speed;
+                left = true;
                 break;
             case KeyEvent.VK_RIGHT:
-                x += speed;
+                right = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 飞机飞行方向消除:键盘弹起
+     */
+    public void minusDirection(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                up = false;
+                break;
+            case KeyEvent.VK_DOWN:
+                down = false;
+                break;
+            case KeyEvent.VK_LEFT:
+                left = false;
+                break;
+            case KeyEvent.VK_RIGHT:
+                right = false;
                 break;
             default:
                 break;
