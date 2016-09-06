@@ -15,7 +15,18 @@ public class Plane extends GameObject {
 
 
     //飞机方向
-    boolean left, right, up, down;
+    private boolean left, right, up, down;
+
+    private boolean live = true;
+
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
 
     public Plane(){
 
@@ -41,10 +52,12 @@ public class Plane extends GameObject {
      * 绘制飞机到画布
      */
     public void draw(Graphics g) {
-        g.drawImage(img, (int)x, (int)y, null);
-
-        move();
+        if (live) {
+            g.drawImage(img, (int)x, (int)y, null);
+            move();
+        }
     }
+
 
 
     /**

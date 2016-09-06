@@ -1,12 +1,16 @@
 package com.mingjalee.plane;
 
+import com.mingjalee.util.Constant;
 import com.mingjalee.util.GameUtil;
 import com.mingjalee.util.MyFrame;
+import com.sun.glass.ui.Size;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 游戏主窗口
@@ -21,6 +25,8 @@ public class PlaneGameFrame extends MyFrame {
 
     ArrayList bulletList = new ArrayList();
 
+    Date startTime;
+    Date endTime;
     /**
      * 绘制画面
      */
@@ -32,14 +38,82 @@ public class PlaneGameFrame extends MyFrame {
         for (int i = 0; i < bulletList.size(); i++) {
             Bullet b = (Bullet)bulletList.get(i);
             b.draw(g);
+            if (plane.isLive()) {
+                boolean crash = b.getRect().intersects(plane.getRect());
+                if (crash) {
+                    System.out.println("##########发生碰撞########");
+                    plane.setLive(false); //飞机挂掉
 
-            boolean crash = b.getRect().intersects(plane.getRect());
-            if (crash) {
-                System.out.println("##########发生碰撞########");
+                    endTime = new Date();
+                }
             }
+        }
+
+
+        showStopwatch(g, new Date());
+
+        //游戏结束 显示信息
+        if (!plane.isLive()) {
+            //游戏成绩等级显示
+            printGrade(g);
         }
     }
 
+    public void showStopwatch(Graphics g, Date currentTime) {
+        int period = 0;
+        try {
+            if(currentTime == null){
+                currentTime = new Date();
+            }
+            period = (int) ((currentTime.getTime() - startTime.getTime()) / 1000);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //手动通知JVM销毁cur对象
+        currentTime = null;
+        System.gc();
+
+        printInfo(g, "计时:" + period + "秒", 400 , 50, Color.white, 20);
+    }
+
+    /**
+     * 等级显示
+     * @param g
+     */
+    public void printGrade(Graphics g) {
+        int period = (int) ( (endTime.getTime() - startTime.getTime()) / 1000 );
+        printInfo(g, "时间:" + period + "秒", 100, 260, Color.white, 20 );
+
+        switch (period / 10) {
+            case 0:
+                printInfo(g, "菜鸡", 100, 200, Color.white, 50);
+                break;
+            case 1:
+                printInfo(g, "小鸡", 100, 200, Color.white, 50);
+                break;
+            case 2:
+                printInfo(g, "老司机", 100, 200, Color.yellow, 50);
+                break;
+            default:
+                printInfo(g, "鸡王", 100, 200, Color.yellow, 50);
+                break;
+        }
+    }
+
+    /**
+     * 屏幕上打印信息
+     * @param g
+     * @param str
+     */
+    public void printInfo(Graphics g, String str, int x, int y, Color color, int size) {
+        Color c = g.getColor();
+        g.setColor(color);
+        Font f = new Font("宋体",Font.BOLD,size);
+        g.setFont(f);
+        g.drawString(str, x , y);
+        g.setColor(c);
+    }
 
     @Override
     public void launchFrame() {
@@ -52,6 +126,8 @@ public class PlaneGameFrame extends MyFrame {
             Bullet b = new Bullet();
             bulletList.add(b);
         }
+
+        startTime = new Date();
     }
 
     /**
