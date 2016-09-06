@@ -46,6 +46,13 @@ public class Bullet {
     }
 
     /**
+     * 得到物体图片矩形
+     */
+    public Rectangle getRect() {
+        return new Rectangle((int)x, (int)y, width, height);
+    }
+
+    /**
      * 子弹移动
      */
     public void move() {

@@ -19,6 +19,9 @@ public class Plane {
     double speed = 6;
     double degree;
 
+    int width;
+    int height;
+
     //飞机方向
     boolean left, right, up, down;
 
@@ -26,12 +29,15 @@ public class Plane {
 
     }
 
+
     public Plane(String imgPath, double x, double y) {
         this(GameUtil.getImage(imgPath), x, y);
     }
 
     public Plane(Image img, double x, double y) {
         this.img = img;
+        this.width = img.getWidth(null);
+        this.height = img.getHeight(null);
 
         this.x = x;
         this.y = y;
@@ -44,6 +50,13 @@ public class Plane {
         g.drawImage(img, (int)x, (int)y, null);
 
         move();
+    }
+
+    /**
+     * 得到物体图片矩形
+     */
+    public Rectangle getRect() {
+        return new Rectangle((int)x, (int)y, width, height);
     }
 
     /**

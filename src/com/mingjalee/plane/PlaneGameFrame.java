@@ -32,6 +32,11 @@ public class PlaneGameFrame extends MyFrame {
         for (int i = 0; i < bulletList.size(); i++) {
             Bullet b = (Bullet)bulletList.get(i);
             b.draw(g);
+
+            boolean crash = b.getRect().intersects(plane.getRect());
+            if (crash) {
+                System.out.println("##########发生碰撞########");
+            }
         }
     }
 
@@ -56,14 +61,13 @@ public class PlaneGameFrame extends MyFrame {
     class KeyMonitor extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("按下键盘: " + e.getKeyChar() + " " + e.getKeyCode());
-
+            //System.out.println("按下键盘: " + e.getKeyChar() + " " + e.getKeyCode());
             plane.addDirection(e);
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("松开键盘: " + e.getKeyChar() + " " + e.getKeyCode());
+            //System.out.println("松开键盘: " + e.getKeyChar() + " " + e.getKeyCode());
             plane.minusDirection(e);
         }
     }
